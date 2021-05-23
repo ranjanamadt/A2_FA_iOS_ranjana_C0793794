@@ -60,17 +60,41 @@
 		E344B8D62659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794 */ = {
 			isa = PBXGroup;
 			children = (
+				E3E7EEFE265A0A5900B56188 /* Model */,
+				E3E7EEFD265A0A3000B56188 /* View */,
 				E344B8D72659EFC300755B9E /* AppDelegate.swift */,
 				E344B8D92659EFC300755B9E /* SceneDelegate.swift */,
-				E344B8DB2659EFC300755B9E /* ListingVC.swift */,
-				E344B8DD2659EFC300755B9E /* Main.storyboard */,
+				E344B8F4265A023900755B9E /* ViewController */,
 				E344B8E32659EFC400755B9E /* Assets.xcassets */,
 				E344B8E52659EFC400755B9E /* LaunchScreen.storyboard */,
 				E344B8E82659EFC400755B9E /* Info.plist */,
-				E344B8E02659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodeld */,
-				E344B8EF2659FC9800755B9E /* AddEditProductVC.swift */,
 			);
 			path = A2_FA_iOS_ranjana_C0793794;
+			sourceTree = "<group>";
+		};
+		E344B8F4265A023900755B9E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E344B8EF2659FC9800755B9E /* AddEditProductVC.swift */,
+				E344B8DB2659EFC300755B9E /* ListingVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3E7EEFD265A0A3000B56188 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E344B8DD2659EFC300755B9E /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3E7EEFE265A0A5900B56188 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E344B8E02659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodeld */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
