@@ -21,16 +21,26 @@ class AddEditProductVC: UIViewController {
     
     @IBOutlet weak var textFieldDescription: UITextField!
     
+   
     var products: [Product]?
     var managedContext: NSManagedObjectContext!
+    var selectedProduct: Product?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+      //  textFieldProductId.text =  selectedProduct!.productId
+        textFieldProductName.text = selectedProduct?.productName
+        textFieldProvider.text = selectedProduct?.productProvider
+        textFieldDescription.text = selectedProduct?.productDescription
+       // textFieldPrice.text = NSString(format: ".2lf", selectedProduct?.productPrice as! "CVarArg")
+        //textFieldPrice.text = String(format: ".2lf", selectedProduct?.productPrice)
     }
  
     @IBAction func onCancelClick() {
+        self.dismiss(animated: false, completion: nil)
     }
     
     @IBAction func onSaveClick() {
