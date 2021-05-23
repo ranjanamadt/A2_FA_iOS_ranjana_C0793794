@@ -9,23 +9,25 @@
 /* Begin PBXBuildFile section */
 		E344B8D82659EFC300755B9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8D72659EFC300755B9E /* AppDelegate.swift */; };
 		E344B8DA2659EFC300755B9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8D92659EFC300755B9E /* SceneDelegate.swift */; };
-		E344B8DC2659EFC300755B9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8DB2659EFC300755B9E /* ViewController.swift */; };
+		E344B8DC2659EFC300755B9E /* ListingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8DB2659EFC300755B9E /* ListingVC.swift */; };
 		E344B8DF2659EFC300755B9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E344B8DD2659EFC300755B9E /* Main.storyboard */; };
 		E344B8E22659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E344B8E02659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodeld */; };
 		E344B8E42659EFC400755B9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E344B8E32659EFC400755B9E /* Assets.xcassets */; };
 		E344B8E72659EFC400755B9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E344B8E52659EFC400755B9E /* LaunchScreen.storyboard */; };
+		E344B8F02659FC9800755B9E /* AddEditProductVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8EF2659FC9800755B9E /* AddEditProductVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E344B8D42659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = A2_FA_iOS_ranjana_C0793794.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E344B8D72659EFC300755B9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E344B8D92659EFC300755B9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E344B8DB2659EFC300755B9E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E344B8DB2659EFC300755B9E /* ListingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingVC.swift; sourceTree = "<group>"; };
 		E344B8DE2659EFC300755B9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E344B8E12659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = A2_FA_iOS_ranjana_C0793794.xcdatamodel; sourceTree = "<group>"; };
 		E344B8E32659EFC400755B9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E344B8E62659EFC400755B9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E344B8E82659EFC400755B9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E344B8EF2659FC9800755B9E /* AddEditProductVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditProductVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,12 +62,13 @@
 			children = (
 				E344B8D72659EFC300755B9E /* AppDelegate.swift */,
 				E344B8D92659EFC300755B9E /* SceneDelegate.swift */,
-				E344B8DB2659EFC300755B9E /* ViewController.swift */,
+				E344B8DB2659EFC300755B9E /* ListingVC.swift */,
 				E344B8DD2659EFC300755B9E /* Main.storyboard */,
 				E344B8E32659EFC400755B9E /* Assets.xcassets */,
 				E344B8E52659EFC400755B9E /* LaunchScreen.storyboard */,
 				E344B8E82659EFC400755B9E /* Info.plist */,
 				E344B8E02659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodeld */,
+				E344B8EF2659FC9800755B9E /* AddEditProductVC.swift */,
 			);
 			path = A2_FA_iOS_ranjana_C0793794;
 			sourceTree = "<group>";
@@ -140,8 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E344B8DC2659EFC300755B9E /* ViewController.swift in Sources */,
+				E344B8DC2659EFC300755B9E /* ListingVC.swift in Sources */,
 				E344B8E22659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodeld in Sources */,
+				E344B8F02659FC9800755B9E /* AddEditProductVC.swift in Sources */,
 				E344B8D82659EFC300755B9E /* AppDelegate.swift in Sources */,
 				E344B8DA2659EFC300755B9E /* SceneDelegate.swift in Sources */,
 			);

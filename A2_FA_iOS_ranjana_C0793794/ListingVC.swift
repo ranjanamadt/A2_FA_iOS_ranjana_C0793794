@@ -2,12 +2,12 @@
 //  ViewController.swift
 //  A2_FA_iOS_ranjana_C0793794
 //
-//  Created by Gulshan Bajwa on 23/05/21.
+//  Created by Ranjana on 23/05/21.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class ListingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
