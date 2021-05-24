@@ -5,7 +5,6 @@
         <attribute name="productId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="productName" optional="YES" attributeType="String"/>
         <attribute name="productPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="productProvider" optional="YES" attributeType="String"/>
         <relationship name="provider" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Providers" inverseName="products" inverseEntity="Providers"/>
     </entity>
     <entity name="Providers" representedClassName="Providers" syncable="YES" codeGenerationType="class">
@@ -13,7 +12,7 @@
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Product" inverseName="provider" inverseEntity="Product"/>
     </entity>
     <elements>
-        <element name="Product" positionX="-54" positionY="-9" width="128" height="119"/>
+        <element name="Product" positionX="-54" positionY="-9" width="128" height="104"/>
         <element name="Providers" positionX="-54" positionY="27" width="128" height="14"/>
     </elements>
 </model>

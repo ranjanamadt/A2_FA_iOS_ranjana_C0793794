@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF88C7EA265B9EB400C5F278 /* ProdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88C7E9265B9EB400C5F278 /* ProdCell.swift */; };
 		BF88C7EC265BA33900C5F278 /* ProviderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88C7EB265BA33900C5F278 /* ProviderCell.swift */; };
+		BF88C7EE265BA87800C5F278 /* ProdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF88C7ED265BA87800C5F278 /* ProdCell.swift */; };
 		E344B8D82659EFC300755B9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8D72659EFC300755B9E /* AppDelegate.swift */; };
 		E344B8DA2659EFC300755B9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8D92659EFC300755B9E /* SceneDelegate.swift */; };
 		E344B8DC2659EFC300755B9E /* ListingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E344B8DB2659EFC300755B9E /* ListingVC.swift */; };
@@ -20,8 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BF88C7E9265B9EB400C5F278 /* ProdCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProdCell.swift; sourceTree = "<group>"; };
 		BF88C7EB265BA33900C5F278 /* ProviderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderCell.swift; sourceTree = "<group>"; };
+		BF88C7ED265BA87800C5F278 /* ProdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdCell.swift; sourceTree = "<group>"; };
 		E344B8D42659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = A2_FA_iOS_ranjana_C0793794.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E344B8D72659EFC300755B9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E344B8D92659EFC300755B9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +64,6 @@
 		E344B8D62659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794 */ = {
 			isa = PBXGroup;
 			children = (
-				BF88C7E9265B9EB400C5F278 /* ProdCell.swift */,
 				E3E7EEFE265A0A5900B56188 /* Model */,
 				E3E7EEFD265A0A3000B56188 /* View */,
 				E344B8D72659EFC300755B9E /* AppDelegate.swift */,
@@ -74,6 +73,7 @@
 				E344B8E52659EFC400755B9E /* LaunchScreen.storyboard */,
 				E344B8E82659EFC400755B9E /* Info.plist */,
 				BF88C7EB265BA33900C5F278 /* ProviderCell.swift */,
+				BF88C7ED265BA87800C5F278 /* ProdCell.swift */,
 			);
 			path = A2_FA_iOS_ranjana_C0793794;
 			sourceTree = "<group>";
@@ -173,8 +173,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF88C7EE265BA87800C5F278 /* ProdCell.swift in Sources */,
 				BF88C7EC265BA33900C5F278 /* ProviderCell.swift in Sources */,
-				BF88C7EA265B9EB400C5F278 /* ProdCell.swift in Sources */,
 				E344B8DC2659EFC300755B9E /* ListingVC.swift in Sources */,
 				E344B8E22659EFC300755B9E /* A2_FA_iOS_ranjana_C0793794.xcdatamodeld in Sources */,
 				E344B8F02659FC9800755B9E /* AddEditProductVC.swift in Sources */,

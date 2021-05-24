@@ -8,12 +8,14 @@
 import UIKit
 import CoreData
 
-class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
+class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource,saveData{
+    
+
   
  
     
-    var products = [Product]()
-    var providers = [Providers]()
+    //var products = [Product]()
+   // var providers = [Providers]()
     
     var tableViewArray = [Any]()
     
@@ -21,7 +23,7 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    @IBOutlet weak var lblScreenTitle: UILabel!
+    @IBOutlet weak var btnView: UIButton!
     @IBOutlet var table: UITableView!
     // define a search controller
     let searchController = UISearchController(searchResultsController: nil)
@@ -31,30 +33,37 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
         managedContext = appDelegate.persistentContainer.viewContext
         
         // Save Intial List of 10 Products in Core Data
-        saveProductsInCoreData()
+       // saveProductsInCoreData()
         
-        // Load Saved list from Core Data and save it in products array
-        loadProductsFromCoreData(type: Providers())
+        // Load o list from Core Data and save it in products array
+        loadDataFromCoreData(type: Providers())
         
         table.dataSource=self
         table.delegate=self
-        table.tableFooterView=UIView()
+        
         
         //showSearchBar()
         
     
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("will appear")
+        loadDataFromCoreData(type: Providers())
+
+    }
+    
+   
     @IBAction func onViewButtonClick(_ sender: UIButton) {
         
-        print(sender.titleLabel?.text)
         if (sender.titleLabel?.text == "View Products"){
-            loadProductsFromCoreData(type: Product())
-            lblScreenTitle.text = "Products"
+            loadDataFromCoreData(type: Product())
+            self.navigationItem.title = "Products"
             sender.setTitle("View Providers", for: .normal)
         }else if (sender.titleLabel?.text == "View Providers"){
-            loadProductsFromCoreData(type: Providers())
-            lblScreenTitle.text = "Providers"
+            loadDataFromCoreData(type: Providers())
+            self.navigationItem.title  = "Providers"
             sender.setTitle("View Products", for: .normal)
            
         }
@@ -87,15 +96,43 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
             } else if let provider = object as? Providers {
                  cell = tableView.dequeueReusableCell(withIdentifier: "provider" ) as! ProviderCell
                 (cell as! ProviderCell).setProviderCell(provider: provider)
+           
                 return cell
             }
 
         return cell
     }
     
-    
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
+        return 80
+
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (tableView.cellForRow(at: indexPath) is ProviderCell ){
+            loadProductsOfProvider(name: (tableViewArray[indexPath.row] as! Providers).providerName ?? "")
+            self.navigationItem.title = "Products"
+            btnView.setTitle("View Providers", for: .normal)
+          }
+
+    }
+    
+    
+//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        if editingStyleForRowAt == .delete {
+//
+//            deleteProduct(product : products[indexPath.row] )
+//            saveProductsInCoreData()
+//            loadProductsFromCoreData()
+//            products.remove(at: indexPath.row)
+//
+//            // Delete the row from the data source
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//    }
+
+    
 
 //    // Override to to delete row the table view.
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -111,19 +148,18 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
 //        }
 //    }
     
-    func loadProductsFromCoreData(type: NSManagedObject) {
+    func loadDataFromCoreData(type: NSManagedObject) {
         tableViewArray.removeAll()
         if(type is Product){
             let request: NSFetchRequest<Product> = Product.fetchRequest()
             do {
-                products = try managedContext.fetch(request)
+                //products = try managedContext.fetch(request)
                 tableViewArray = try managedContext.fetch(request)
              
             } catch {
                 print(error)
             }
         }else if (type is Providers){
-            
             let request: NSFetchRequest<Providers> = Providers.fetchRequest()
             do {
                 tableViewArray = try managedContext.fetch(request)
@@ -132,14 +168,101 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
             }
         }
 
+        print(tableViewArray.count)
         
         table.reloadData()
     }
+    
+    func loadProductsOfProvider(name: String) {
+        tableViewArray.removeAll()
+        
+        print(name)
+    
+        let request: NSFetchRequest<Product> = Product.fetchRequest()
+        let providerPredicate = NSPredicate(format: "provider.providerName=%@", name)
+        request.predicate=providerPredicate
+        do {
+               // products = try managedContext.fetch(request)
+                tableViewArray = try managedContext.fetch(request)
+             
+            } catch {
+                print(error)
+            }
+     
+        table.reloadData()
+    }
+    
+    func updateProduct(pId: Int, pName: String, pDes: String, pPrice: Double, pProvider: String) {
+               
+        print("upadte")
+        let newProduct = Product(context: context)
+        
+               var pnewProduct = Providers(context: context)
+               pnewProduct.providerName=pProvider
+       
+               // newNote.title = title
+               //newNote.parentFolder = selectedFolder
+               newProduct.productId = Int32(pId)
+               newProduct.productName = pName
+               newProduct.productPrice = pPrice
+               newProduct.productDescription = pDes
+               newProduct.provider = pnewProduct
+       
+       
+               do {
+                   managedContext = appDelegate.persistentContainer.viewContext
+                   try managedContext.save()
+               } catch {
+                   print(error)
+               }
+        loadDataFromCoreData(type : Product())
+               //loadProductsOfProvider(name: pProvider)
+       
+              // saveProductsInCoreData()
+              // loadProductsFromCoreData(type: Product())
+    }
+    
+    
+    /// update note in core data
+    /// - Parameter title: note's title
+//    func updateProduct(pId : Int , pName : String , pDes : String , pPrice :Double ,pProvider :String  ) {
+//        //tableViewArray = []
+//        let newProduct = Product(context: context)
+//        var pnewProduct = Providers(context: context)
+//        pnewProduct.providerName=pProvider
+//
+//        // newNote.title = title
+//        //newNote.parentFolder = selectedFolder
+//        newProduct.productId = Int32(pId)
+//        newProduct.productName = pName
+//        newProduct.productPrice = pPrice
+//        newProduct.productDescription = pDes
+//        newProduct.provider = pnewProduct
+//
+//
+//        do {
+//            managedContext = appDelegate.persistentContainer.viewContext
+//            try managedContext.save()
+//        } catch {
+//            print(error)
+//        }
+//
+//        loadProductsOfProvider(name: pProvider)
+//
+//       // saveProductsInCoreData()
+//       // loadProductsFromCoreData(type: Product())
+//    }
+    
     
     //MARK:- Delete Product from Core Data
     func deleteProduct(product: Product) {
         context.delete(product)
     }
+    //MARK:- Delete Provider from Core Data
+    func deleteProvider(provider: Providers) {
+        context.delete(provider)
+    }
+    
     
     //MARK: - Show Search Bar to serach products from listing
     func showSearchBar() {
@@ -155,85 +278,84 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
 
    
     @objc func saveProductsInCoreData() {
-        clearCoreData()
-      
-        var newProduct = Product(context: context)
-        newProduct.productId=1
-        newProduct.productName="TV"
-        newProduct.productPrice=56.00
-        newProduct.productProvider="Samsung"
-        newProduct.provider?.providerName="Samsung"
-        newProduct.productDescription="Screen Size 24'', Resolution 720P"
-        
+//        clearCoreData()
+//        var newProduct = Product(context: context)
+//        var pnewProduct = Providers(context: context)
+//
+//        pnewProduct.providerName="Apple"
+//        newProduct.productId=1
+//        newProduct.productName="TV"
+//        newProduct.productPrice=56.00
+//        newProduct.provider = pnewProduct
+//        newProduct.provider?.providerName="Samsung"
+//        newProduct.productDescription="Screen Size 24'', Resolution 720P"
+//
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=2
+//        newProduct.productName="Headphones"
+//        newProduct.productPrice=30.00
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Wireless Bluetooth , Active Noise Cancellation"
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=3
+//        newProduct.productName="Laptop"
+//        newProduct.productPrice=89.00
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="8GB RAM, Intel Core i7 Processor ,1TB HDD"
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=4
+//        newProduct.productName="Speakers"
+//        newProduct.productPrice=25.50
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Wireless Bluetooth , Battery Life 10 Hrs"
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=5
+//        newProduct.productName="Speakers"
+//        newProduct.productPrice=23.50
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Mounting type Table Top , Portable Speaker"
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=6
+//        newProduct.productName="Hark Disk"
+//        newProduct.productPrice=45.50
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Storage 1TB, Interface USB 3.0, Read Speed 120MB"
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=7
+//        newProduct.productName="Pen Drive"
+//        newProduct.productPrice=10.50
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Space 18 GB, Weight 50g"
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=8
+//        newProduct.productName="Smart Watch"
+//        newProduct.productPrice=70.00
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Measure SPO2 level, Black Color, 1.3''"
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=9
+//        newProduct.productName="Camera"
+//        newProduct.productPrice=60.00
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Alpha A7 Mirrorless Digital Camera "
+//
+//        newProduct = Product(context: context)
+//        newProduct.productId=10
+//        newProduct.productName="Keyboard"
+//        newProduct.productPrice=10.50
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Instant one touch, Noiseless and Smooth, UV Coated Keys"
+//
+
        
-        newProduct = Product(context: context)
-        newProduct.productId=2
-        newProduct.productName="Headphones"
-        newProduct.productPrice=30.00
-        newProduct.productProvider="Samsung"
-        newProduct.productDescription="Wireless Bluetooth , Active Noise Cancellation"
-        
-        newProduct = Product(context: context)
-        newProduct.productId=3
-        newProduct.productName="Laptop"
-        newProduct.productPrice=89.00
-        newProduct.productProvider="HP"
-        newProduct.productDescription="8GB RAM, Intel Core i7 Processor ,1TB HDD"
-        
-        newProduct = Product(context: context)
-        newProduct.productId=4
-        newProduct.productName="Speakers"
-        newProduct.productPrice=25.50
-        newProduct.productProvider="Boat"
-        newProduct.productDescription="Wireless Bluetooth , Battery Life 10 Hrs"
-        
-        newProduct = Product(context: context)
-        newProduct.productId=5
-        newProduct.productName="Speakers"
-        newProduct.productPrice=23.50
-        newProduct.productProvider="JBL"
-        newProduct.productDescription="Mounting type Table Top , Portable Speaker"
-        
-        newProduct = Product(context: context)
-        newProduct.productId=6
-        newProduct.productName="Hark Disk"
-        newProduct.productPrice=45.50
-        newProduct.productProvider="HP"
-        newProduct.productDescription="Storage 1TB, Interface USB 3.0, Read Speed 120MB"
-        
-        newProduct = Product(context: context)
-        newProduct.productId=7
-        newProduct.productName="Pen Drive"
-        newProduct.productPrice=10.50
-        newProduct.productProvider="HP"
-        newProduct.productDescription="Space 18 GB, Weight 50g"
-        
-        newProduct = Product(context: context)
-        newProduct.productId=8
-        newProduct.productName="Smart Watch"
-        newProduct.productPrice=70.00
-        newProduct.productProvider="Apple"
-        newProduct.productDescription="Measure SPO2 level, Black Color, 1.3''"
-        
-        newProduct = Product(context: context)
-        newProduct.productId=9
-        newProduct.productName="Camera"
-        newProduct.productPrice=60.00
-        newProduct.productProvider="Sony"
-        newProduct.productDescription="Alpha A7 Mirrorless Digital Camera "
-        
-        newProduct = Product(context: context)
-        newProduct.productId=10
-        newProduct.productName="Keyboard"
-        newProduct.productPrice=10.50
-        newProduct.productProvider="Apple"
-        newProduct.productDescription="Instant one touch, Noiseless and Smooth, UV Coated Keys"
-        
-        
-        var pnewProduct = Providers(context: context)
-       
-        pnewProduct.providerName="gdfgdfgdfg"
-        
         
         do {
             try managedContext.save()
@@ -241,6 +363,19 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
             print(error)
         }
         
+//        newProduct = Product(context: context)
+//        newProduct.productId=10
+//        newProduct.productName="Keyboard"
+//        newProduct.productPrice=10.50
+//        newProduct.provider = pnewProduct
+//        newProduct.productDescription="Instant one touch, Noiseless and Smooth, UV Coated Keys"
+//
+//        do {
+//            try managedContext.save()
+//        } catch {
+//            print(error)
+//        }
+//
         
         
         
@@ -250,9 +385,12 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
         let destination = segue.destination as! AddEditProductVC
+        destination.delegate=self
         if let indexPath = table.indexPathForSelectedRow {
             if (tableViewArray[indexPath.row] is  Product){
                 destination.selectedProduct =  tableViewArray[indexPath.row] as? Product
+            }else{
+                loadProductsOfProvider(name: (tableViewArray[indexPath.row] as! Providers).providerName ?? "")
             }
         }
     }
@@ -292,7 +430,7 @@ class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
         let request: NSFetchRequest<Product> = Product.fetchRequest()
         request.predicate=predicate
         do {
-            products = try context.fetch(request)
+            tableViewArray = try context.fetch(request)
         } catch {
             print("Error loading products \(error.localizedDescription)")
         }
