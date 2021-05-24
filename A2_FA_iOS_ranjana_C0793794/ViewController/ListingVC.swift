@@ -16,6 +16,7 @@ class ListingVC:  UITableViewController{
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    @IBOutlet var table: UITableView!
     // define a search controller
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -28,6 +29,8 @@ class ListingVC:  UITableViewController{
         
         // Load Saved list from Core Data and save it in products array
         loadProductsFromCoreData()
+        
+        showSearchBar()
         
     
     }
@@ -61,8 +64,7 @@ class ListingVC:  UITableViewController{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProdCell")
 
         cell?.textLabel?.text = product.productName
-        cell?.detailTextLabel?.text = product.productProvider
-        
+        cell?.detailTextLabel?.text = product.productDescription
         cell?.detailTextLabel?.textColor = .darkGray
 
         return cell!
@@ -104,6 +106,7 @@ class ListingVC:  UITableViewController{
         navigationItem.searchController = searchController
         definesPresentationContext = true
         searchController.searchBar.searchTextField.textColor = .black
+        table.tableHeaderView = searchController.searchBar
     }
 
 
@@ -223,19 +226,11 @@ class ListingVC:  UITableViewController{
     /// - Parameter predicate: parameter comming from search bar - by default is nil
     func loadSearchedProducts(predicate: NSPredicate? = nil) {
         let request: NSFetchRequest<Product> = Product.fetchRequest()
-        let folderPredicate = NSPredicate(format: "productName=%@", "TV")
-        request.sortDescriptors = [NSSortDescriptor(key: "productName", ascending: true)]
-        
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [folderPredicate, additionalPredicate])
-        } else {
-            request.predicate = folderPredicate
-        }
-        
+        request.predicate=predicate
         do {
             products = try context.fetch(request)
         } catch {
-            print("Error loading notes \(error.localizedDescription)")
+            print("Error loading products \(error.localizedDescription)")
         }
         tableView.reloadData()
     }
@@ -248,16 +243,14 @@ extension ListingVC: UISearchBarDelegate {
     /// search button on keypad functionality
     /// - Parameter searchBar: search bar is passed to this function
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // add predicate
-        let predicate = NSPredicate(format: "productName CONTAINS[cd] %@", searchBar.text!)
+        // Predicate for product name and description
+        let predicate = NSPredicate(format: "productName CONTAINS[cd] %@ OR productDescription CONTAINS[cd] %@", searchBar.text!,searchBar.text!)
+
         loadSearchedProducts(predicate: predicate)
     }
     
     
-    /// when the text in text bar is changed
-    /// - Parameters:
-    ///   - searchBar: search bar is passed to this function
-    ///   - searchText: the text that is written in the search bar
+     // MARK:- When Text in search bar changed
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
             loadSearchedProducts()
