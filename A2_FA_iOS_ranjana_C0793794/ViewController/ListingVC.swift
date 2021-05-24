@@ -8,14 +8,20 @@
 import UIKit
 import CoreData
 
-class ListingVC:  UITableViewController{
+class ListingVC: UIViewController, UITableViewDelegate,UITableViewDataSource{
+  
  
     
     var products = [Product]()
+    var providers = [Providers]()
+    
+    var tableViewArray = [Any]()
+    
     var managedContext: NSManagedObjectContext!
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    @IBOutlet weak var lblScreenTitle: UILabel!
     @IBOutlet var table: UITableView!
     // define a search controller
     let searchController = UISearchController(searchResultsController: nil)
@@ -28,69 +34,106 @@ class ListingVC:  UITableViewController{
         saveProductsInCoreData()
         
         // Load Saved list from Core Data and save it in products array
-        loadProductsFromCoreData()
+        loadProductsFromCoreData(type: Providers())
         
-        showSearchBar()
+        table.dataSource=self
+        table.delegate=self
+        table.tableFooterView=UIView()
+        
+        //showSearchBar()
         
     
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    @IBAction func onViewButtonClick(_ sender: UIButton) {
         
-        // If View is appeared then redirect to Product Detail with product stored at 0 position in products
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "detailVC") as! AddEditProductVC
-        nextViewController.selectedProduct = products[0]
-        self.present(nextViewController, animated:true, completion:nil)
-    }
- 
-    
-    // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return products.count
-    }
-
-
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let product = products[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProdCell")
-
-        cell?.textLabel?.text = product.productName
-        cell?.detailTextLabel?.text = product.productDescription
-        cell?.detailTextLabel?.textColor = .darkGray
-
-        return cell!
-    }
-    
-    // Override to to delete row the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            
-            deleteProduct(product : products[indexPath.row] )
-            saveProductsInCoreData()
-            loadProductsFromCoreData()
-            products.remove(at: indexPath.row)
-            
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+        print(sender.titleLabel?.text)
+        if (sender.titleLabel?.text == "View Products"){
+            loadProductsFromCoreData(type: Product())
+            lblScreenTitle.text = "Products"
+            sender.setTitle("View Providers", for: .normal)
+        }else if (sender.titleLabel?.text == "View Providers"){
+            loadProductsFromCoreData(type: Providers())
+            lblScreenTitle.text = "Providers"
+            sender.setTitle("View Products", for: .normal)
+           
         }
+    
     }
     
-    func loadProductsFromCoreData() {
-        let request: NSFetchRequest<Product> = Product.fetchRequest()
-        do {
-            products = try managedContext.fetch(request)
-        } catch {
-            print(error)
+    
+    // Lab Assignment 2
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//        // If View is appeared then redirect to Product Detail with product stored at 0 position in products
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "detailVC") as! AddEditProductVC
+//        nextViewController.selectedProduct = products[0]
+//        self.present(nextViewController, animated:true, completion:nil)
+//    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = UITableViewCell()
+        let object = tableViewArray[indexPath.row]
+            if let product = object as? Product {
+                 cell = tableView.dequeueReusableCell(withIdentifier: "product" ) as! ProdCell
+                (cell as! ProdCell).setProdCell(product: product)
+                return cell
+            } else if let provider = object as? Providers {
+                 cell = tableView.dequeueReusableCell(withIdentifier: "provider" ) as! ProviderCell
+                (cell as! ProviderCell).setProviderCell(provider: provider)
+                return cell
+            }
+
+        return cell
+    }
+    
+    
+    
+
+
+//    // Override to to delete row the table view.
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//
+//            deleteProduct(product : products[indexPath.row] )
+//            saveProductsInCoreData()
+//            loadProductsFromCoreData()
+//            products.remove(at: indexPath.row)
+//
+//            // Delete the row from the data source
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
+//    }
+    
+    func loadProductsFromCoreData(type: NSManagedObject) {
+        tableViewArray.removeAll()
+        if(type is Product){
+            let request: NSFetchRequest<Product> = Product.fetchRequest()
+            do {
+                products = try managedContext.fetch(request)
+                tableViewArray = try managedContext.fetch(request)
+             
+            } catch {
+                print(error)
+            }
+        }else if (type is Providers){
+            
+            let request: NSFetchRequest<Providers> = Providers.fetchRequest()
+            do {
+                tableViewArray = try managedContext.fetch(request)
+            } catch {
+                print(error)
+            }
         }
+
+        
+        table.reloadData()
     }
     
     //MARK:- Delete Product from Core Data
@@ -119,6 +162,7 @@ class ListingVC:  UITableViewController{
         newProduct.productName="TV"
         newProduct.productPrice=56.00
         newProduct.productProvider="Samsung"
+        newProduct.provider?.providerName="Samsung"
         newProduct.productDescription="Screen Size 24'', Resolution 720P"
         
        
@@ -186,6 +230,10 @@ class ListingVC:  UITableViewController{
         newProduct.productDescription="Instant one touch, Noiseless and Smooth, UV Coated Keys"
         
         
+        var pnewProduct = Providers(context: context)
+       
+        pnewProduct.providerName="gdfgdfgdfg"
+        
         
         do {
             try managedContext.save()
@@ -200,9 +248,12 @@ class ListingVC:  UITableViewController{
     
     //MARK:-Override prepare method to send selectd product to Detail Product View Controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
         let destination = segue.destination as! AddEditProductVC
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destination.selectedProduct = products[indexPath.row]
+        if let indexPath = table.indexPathForSelectedRow {
+            if (tableViewArray[indexPath.row] is  Product){
+                destination.selectedProduct =  tableViewArray[indexPath.row] as? Product
+            }
         }
     }
     
@@ -220,6 +271,19 @@ class ListingVC:  UITableViewController{
             print("Error deleting records \(error)")
         }
         
+        let fetchRequest2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Providers")
+        do {
+            let results = try managedContext.fetch(fetchRequest2)
+            for result in results {
+                if let managedObject = result as? NSManagedObject {
+                    managedContext.delete(managedObject)
+                }
+            }
+        } catch {
+            print("Error deleting records \(error)")
+        }
+        
+        
     }
     
     /// Load Products from Core Data based on serach
@@ -232,7 +296,7 @@ class ListingVC:  UITableViewController{
         } catch {
             print("Error loading products \(error.localizedDescription)")
         }
-        tableView.reloadData()
+        table.reloadData()
     }
     
 }

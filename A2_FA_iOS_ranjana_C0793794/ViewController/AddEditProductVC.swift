@@ -29,13 +29,16 @@ class AddEditProductVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        if(selectedProduct != nil){
         //Set Selected Product Data in textFields
         textFieldProductId.text =  String (selectedProduct!.productId)
         textFieldProductName.text = selectedProduct?.productName
         textFieldProvider.text = selectedProduct?.productProvider
         textFieldDescription.text = selectedProduct?.productDescription
         textFieldPrice.text =  String (selectedProduct!.productPrice)
+        
+        selectedProduct=nil
+        }
       
     }
  
@@ -43,5 +46,7 @@ class AddEditProductVC: UIViewController {
         self.dismiss(animated: false, completion: nil)
     }
     
- 
+    @IBAction func onSaveClick(_ sender: Any) {
+    }
+    
 }
