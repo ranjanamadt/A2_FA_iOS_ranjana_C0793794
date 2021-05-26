@@ -27,7 +27,7 @@ class ProdCell: UITableViewCell {
     //this function to show values of the selected product in the cell columns
     func setProdCell (product: Product){
         lblProdName.text=product.productName
-        lblProdDescription.text=product.productDescription
+        lblProdDescription.text=product.provider?.providerName
         
         
     }

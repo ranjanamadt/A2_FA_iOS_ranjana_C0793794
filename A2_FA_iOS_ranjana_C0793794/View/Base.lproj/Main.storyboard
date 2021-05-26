@@ -159,46 +159,8 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="704"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="product" rowHeight="80" id="3la-sr-vye" customClass="ProdCell" customModule="A2_FA_iOS_ranjana_C0793794" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3la-sr-vye" id="Ywe-sI-egF" customClass="ProdCell" customModule="A2_FA_iOS_ranjana_C0793794" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="yT4-h7-7fa">
-                                                    <rect key="frame" x="10" y="10" width="394" height="60"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FiX-Bq-4Od">
-                                                            <rect key="frame" x="0.0" y="0.0" width="394" height="28.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlx-00-3Zx">
-                                                            <rect key="frame" x="0.0" y="31.5" width="394" height="28.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="yT4-h7-7fa" secondAttribute="trailing" constant="10" id="Swi-iJ-tS2"/>
-                                                <constraint firstItem="yT4-h7-7fa" firstAttribute="leading" secondItem="Ywe-sI-egF" secondAttribute="leading" constant="10" id="VFk-Tc-waT"/>
-                                                <constraint firstAttribute="bottom" secondItem="yT4-h7-7fa" secondAttribute="bottom" constant="10" id="Znx-z1-xdx"/>
-                                                <constraint firstItem="yT4-h7-7fa" firstAttribute="top" secondItem="Ywe-sI-egF" secondAttribute="top" constant="10" id="ijR-EJ-Wx6"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="lblProdDescription" destination="dlx-00-3Zx" id="ekE-AO-YIg"/>
-                                            <outlet property="lblProdName" destination="FiX-Bq-4Od" id="LIS-NI-L2L"/>
-                                            <segue destination="ZMO-Sx-EzZ" kind="showDetail" identifier="proListToDetails" id="UMl-si-a19"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="provider" rowHeight="80" id="jH0-fu-iec" customClass="ProviderCell" customModule="A2_FA_iOS_ranjana_C0793794" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.5" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jH0-fu-iec" id="24z-0H-NAk">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -234,6 +196,44 @@
                                             <outlet property="lblProviderName" destination="dgp-Kf-F5N" id="k1f-8c-bSH"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="product" id="z9Z-o5-lwc" customClass="ProdCell" customModule="A2_FA_iOS_ranjana_C0793794" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="104.5" width="414" height="64.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z9Z-o5-lwc" id="awB-In-zy7">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="yT4-h7-7fa">
+                                                    <rect key="frame" x="10" y="10" width="394" height="44.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FiX-Bq-4Od">
+                                                            <rect key="frame" x="0.0" y="0.0" width="394" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlx-00-3Zx">
+                                                            <rect key="frame" x="0.0" y="24" width="394" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yT4-h7-7fa" firstAttribute="leading" secondItem="awB-In-zy7" secondAttribute="leading" constant="10" id="5Tz-7I-Lal"/>
+                                                <constraint firstAttribute="bottom" secondItem="yT4-h7-7fa" secondAttribute="bottom" constant="10" id="dZf-j8-raW"/>
+                                                <constraint firstItem="yT4-h7-7fa" firstAttribute="top" secondItem="awB-In-zy7" secondAttribute="top" constant="10" id="tHf-fJ-Wd1"/>
+                                                <constraint firstAttribute="trailing" secondItem="yT4-h7-7fa" secondAttribute="trailing" constant="10" id="z43-Nl-030"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblProdDescription" destination="dlx-00-3Zx" id="2E1-vY-ZRz"/>
+                                            <outlet property="lblProdName" destination="FiX-Bq-4Od" id="bxe-8S-ezt"/>
+                                            <segue destination="ZMO-Sx-EzZ" kind="showDetail" id="fZD-eF-4CO"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="FT9-ad-lkn" id="Hbj-SG-Ywe"/>
@@ -263,7 +263,7 @@
                                         </constraints>
                                         <state key="normal" image="plus" catalog="system"/>
                                         <connections>
-                                            <segue destination="ZMO-Sx-EzZ" kind="showDetail" id="zQh-4Z-p6c"/>
+                                            <segue destination="ZMO-Sx-EzZ" kind="showDetail" id="ckq-ey-dPb"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -290,7 +290,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Provider" id="q94-fz-Jyv">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="SPs-FY-3s3"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="SPs-FY-3s3">
+                            <connections>
+                                <action selector="onEditclick:" destination="FT9-ad-lkn" id="thH-nI-8nK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="btnView" destination="UCc-cg-BXD" id="UnQ-Tl-Sgr"/>
@@ -321,7 +325,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UMl-si-a19"/>
+        <segue reference="fZD-eF-4CO"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
